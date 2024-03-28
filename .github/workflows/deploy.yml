@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: chrono
-          path: target/release/chrono
+          path: dist/
 
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
@@ -45,4 +45,4 @@ jobs:
             whoami
             ls -al
             echo $RSYNC_STDOUT
-            nohup ./home/ubuntu/zchronod/chrono --config /home/ubuntu/zchronod/chronod.yaml > run.log 2>&1 &
+            nohup /home/ubuntu/zchronod/chrono --config /home/ubuntu/zchronod/chronod.yaml > run.log 2>&1 &
