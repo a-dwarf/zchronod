@@ -25,24 +25,24 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: chrono
-          path: target/release/chrono
+          path: ./target/release/chrono
 
-    - name: Deploy to Server
-      uses: easingthemes/ssh-deploy@main
-      with:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          # # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-          ARGS: "-rlgoDzvc -i --delete"
-          SOURCE: "chronod.yaml, target/release/chrono"
-          REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
-          REMOTE_USER: ${{ secrets.REMOTE_USER }}
-          # 目标目录
-          TARGET: ${{ secrets.REMOTE_TARGET }}
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
-          SCRIPT_AFTER: |
-            whoami
-            ls -al
-            echo $RSYNC_STDOUT
-            nohup ./home/ubuntu/chrono/chrono --config chronod.yaml > run.log 2>&1 &
+    # - name: Deploy to Server
+    #   uses: easingthemes/ssh-deploy@main
+    #   with:
+    #       SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+    #       # # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
+    #       ARGS: "-rlgoDzvc -i --delete"
+    #       SOURCE: "chronod.yaml, target/release/chrono"
+    #       REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+    #       REMOTE_USER: ${{ secrets.REMOTE_USER }}
+    #       # 目标目录
+    #       TARGET: ${{ secrets.REMOTE_TARGET }}
+    #       SCRIPT_BEFORE: |
+    #         whoami
+    #         ls -al
+    #       SCRIPT_AFTER: |
+    #         whoami
+    #         ls -al
+    #         echo $RSYNC_STDOUT
+    #         nohup ./home/ubuntu/chrono/chrono --config chronod.yaml > run.log 2>&1 &
