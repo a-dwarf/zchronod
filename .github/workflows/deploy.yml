@@ -25,7 +25,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
           name: chrono
-          path: ./target/release/chrono
+          path: target/release/chrono
 
     - name: Deploy to Server
       uses: easingthemes/ssh-deploy@main
