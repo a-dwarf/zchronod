@@ -37,7 +37,7 @@ jobs:
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           # 目标目录
-          TARGET: ${{ secrets.REMOTE_TARGET }}
+          TARGET: "/home/ubuntu/zchronod"
           SCRIPT_BEFORE: |
             whoami
             ls -al
@@ -45,4 +45,4 @@ jobs:
             whoami
             ls -al
             echo $RSYNC_STDOUT
-            nohup ./home/ubuntu/chrono/chrono --config /home/ubuntu/chrono/chronod.yaml > run.log 2>&1 &
+            nohup ./home/ubuntu/zchronod/chrono --config /home/ubuntu/zchronod/chronod.yaml > run.log 2>&1 &
