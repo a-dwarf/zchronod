@@ -1,0 +1,29 @@
+name: deploy Rust to host by ssh
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Build
+      run: cargo build
+
+    # 上传仓库里的文件到artifact
+    - name: artifact
+      uses: actions/upload-artifact@v2
+      with:
+          name: chrono
+          path: ./target/release/chrono
+
