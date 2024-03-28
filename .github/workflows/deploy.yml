@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v3
     
     - name: Build
-      run: cargo build --release
+      run: cargo build --release && cp target/release/chrono dist/ && cp chronod.yaml dist/
 
     # 上传仓库里的文件到artifact
     - name: artifact
@@ -33,7 +33,7 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
           # # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
           ARGS: "-rlgoDzvc -i --delete"
-          SOURCE: "chronod.yaml, target/release/chrono"
+          SOURCE: "dist/"
           REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
           REMOTE_USER: ${{ secrets.REMOTE_USER }}
           # 目标目录
@@ -45,4 +45,4 @@ jobs:
             whoami
             ls -al
             echo $RSYNC_STDOUT
-            nohup ./home/ubuntu/chrono/chrono --config chronod.yaml > run.log 2>&1 &
+            nohup ./home/ubuntu/chrono/chrono --config /home/ubuntu/chrono/chronod.yaml > run.log 2>&1 &
